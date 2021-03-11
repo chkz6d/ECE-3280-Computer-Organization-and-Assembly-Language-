@@ -1,0 +1,40 @@
+0001                         ********************************************
+0002                         *Name: Chan Kim
+0003                         *Student ID Number: 12501098
+0004                         *Date: 2/11/2019
+0005                         ********************************************
+0006                         *
+0007                         * This program will add data1 and data3 and subtract data2 
+0008                         *
+0009                         *
+0010                         *                                Table to be filled out
+0011                         *     Step    |    PC         |   Register A |   Memory $B003 |   NZVC    |
+0012                         *     ----------------------------------------------------------------------------
+0013                         *       1       |  $C003      |        $0A       |     $00                    |   0000        |
+0014                         *       2       |  $C006      |        $FB       |     $00                    |    1001       |
+0015                         *       3       |  $C009      |        $15       |      $00                   |     0001      |
+0016                         *       4       |  $C00C     |        $15        |      $15                   |     0001      |
+0017                         *
+0018                         ********************************************
+0019                         * data location starts at $B000
+0020 b000                    		ORG		$B000
+0021 b000 0a                 DATA1	FCB     	10		declare 1-byte variable DATA1 and initialize it with 10
+0022 b001 0f                 DATA2	FCB     	15		declare 1-byte variable DATA2 and initialize it with 15
+0023 b002 1a                 DATA3	FCB     	$1A		declare 1-byte variable DATA3 and initialize it with $1A
+0024 b003                    RESULT	RMB     	1     		declare 1-byte variable RESULT
+0025                         
+0026                         * main program starts at $C000
+0027 c000                           		ORG     	$C000
+0028                         
+0029 c000 b6 b0 00           		LDAA    	DATA1   	load A with DATA1
+0030 c003 b0 b0 01                  		SUBA    	DATA2   	subtract DATA2 from A
+0031 c006 bb b0 02                  		ADDA    	DATA3   	add DATA3 to A
+0032 c009 b7 b0 03            		STAA    	RESULT	store A in RESULT
+0033 c00c 20 fe              DONE   	BRA     	DONE   	a little goofy, but convenient
+0034                                	 	END                    		Tells the Assembler that we’re done
+
+DATA1      b000
+DATA2      b001
+DATA3      b002
+DONE       c00c
+RESULT     b003
